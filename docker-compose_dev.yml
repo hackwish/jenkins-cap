@@ -1,7 +1,7 @@
 version: '2'
 services:
   jenkins-cap:
-    image: hackwish/jenkins-docker-cap:latest
+    image: jenkins-docker-cap:latest
     # restart_policy: unless-stopped
     ports:
      - "8080:8080"
