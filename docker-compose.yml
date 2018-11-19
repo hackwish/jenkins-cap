@@ -1,0 +1,16 @@
+version: '2'
+services:
+  jenkins-cap:
+    image: jenkins-cap:latest
+    # restart_policy: unless-stopped
+    ports:
+     - "8080:8080"
+     - "50000:50000"
+    environment:
+      JAVA_OPTS: -Dhudson.footerURL=https://www.i-med.cl
+    volumes:
+      - ./ssh/id_rsa:$HOME/.ssh/id_rsa 
+      - ./ssh/id_rsa.pub:$HOME/.ssh/id_rsa.pub
+    #   - /opt/jenkins:/var/jenkins_home
+#    command: eval "$(ssh-agent -s)" && git config --global user.email "sistemas@i-med.cl" && git config --global user.name "Jenkins"
+
