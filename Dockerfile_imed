@@ -70,30 +70,33 @@ RUN apt-get update && \
 	apt-get update && \
 	apt-get -y install docker-ce
 
-#DOCKER
 RUN apt-get install -y docker-ce
 
 RUN usermod -a -G docker jenkins
 
-#CAPISTRANO
 RUN gem install capistrano -v3.4.0
 RUN gem install capistrano-passenger
-RUN cap --version
-
-#RANCHER-COMPOSE (based on concept by jeefy/install-rancher-compose.sh)
-ENV VERSION_NUM="0.12.5"
-RUN wget https://github.com/rancher/rancher-compose/releases/download/v${VERSION_NUM}/rancher-compose-linux-amd64-v${VERSION_NUM}.tar.gz
-RUN tar zxf rancher-compose-linux-amd64-v${VERSION_NUM}.tar.gz
-RUN rm rancher-compose-linux-amd64-v${VERSION_NUM}.tar.gz
-RUN sudo mv rancher-compose-v${VERSION_NUM}/rancher-compose /usr/local/bin/rancher-compose
-RUN sudo chmod +x /usr/local/bin/rancher-compose
-RUN rm -r rancher-compose-v${VERSION_NUM}
+# RUN cap --version
+# RUN docker --version
 
 USER jenkins
 RUN ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N ''
-# COPY ./ssh/id_rsa /root/.ssh/id_rsa 
-# COPY ./ssh/id_rsa.pub /root/.ssh/id_rsa.pub
-# RUN eval "$(ssh-agent -s)"
-# RUN git config --global user.email "sistemas@i-med.cl"
-# RUN git config --global user.name "Jenkins"
-#RUN ssh-add
+RUN mkdir /var/jenkins_home/.ssh/
+# #SSH KEYS
+# RUN mkdir -p /var/jenkins_home/.ssh/
+
+COPY ./jenkins_ssh/id_rsa /var/jenkins_home/.ssh/id_rsa
+COPY ./jenkins_ssh/id_rsa.pub /var/jenkins_home/.ssh/id_rsa.pub
+
+# RUN ls -lsa /var/jenkins_home/
+
+
+RUN eval "$(ssh-agent -s)"
+RUN git config --global user.email "sistemas@i-med.cl"
+RUN git config --global user.name "Jenkins"
+
+#CMD chmod 700 $HOME/.ssh/id_rsa
+#CMD exec ssh-agent bash
+#CMD ssh-add $HOME/.ssh/id_rsa
+
+# USER jenkins

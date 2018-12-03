@@ -7,11 +7,12 @@ services:
      - "8080:8080"
      - "50000:50000"
     environment:
-      JAVA_OPTS: -Dhudson.footerURL=https://www.i-med.cl
+      JAVA_OPTS: -Dhudson.footerURL=http://www.site.test
+    stdin_open: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME/ssh/id_rsa:$HOME/.ssh/id_rsa 
-      - $HOME/ssh/id_rsa.pub:$HOME/.ssh/id_rsa.pub
+      # - $HOME/ssh/id_rsa:$HOME/.ssh/id_rsa 
+      # - $HOME/ssh/id_rsa.pub:$HOME/.ssh/id_rsa.pub
     #   - /opt/jenkins:/var/jenkins_home
 #    command: eval "$(ssh-agent -s)" && git config --global user.email "sistemas@i-med.cl" && git config --global user.name "Jenkins"
 

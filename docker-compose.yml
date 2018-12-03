@@ -1,17 +1,14 @@
 version: '2'
 services:
-  jenkins-cap:
+  jenkins-dockercap:
     image: hackwish/jenkins-dockercap
-    # restart_policy: unless-stopped
-    ports:
-     - "8080:8080"
-     - "50000:50000"
     environment:
-      JAVA_OPTS: -Dhudson.footerURL=https://www.i-med.cl
+      JAVA_OPTS: -Dhudson.footerURL=https://www.site.cl
+    stdin_open: true
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - $HOME/ssh/id_rsa:$HOME/.ssh/id_rsa 
-      - $HOME/ssh/id_rsa.pub:$HOME/.ssh/id_rsa.pub
-    #   - /opt/jenkins:/var/jenkins_home
-#    command: eval "$(ssh-agent -s)" && git config --global user.email "sistemas@i-med.cl" && git config --global user.name "Jenkins"
-
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /opt/jenkins:/var/jenkins_home
+    tty: true
+    # extra_hosts:
+    labels:
+      io.rancher.container.pull_image: always
