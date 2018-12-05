@@ -22,3 +22,4 @@ root_ssh/
 jenkins_ssh/
 
 docker-compose_imed.yml
+docker-compose_extdev_imed.yml

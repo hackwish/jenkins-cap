@@ -49,6 +49,16 @@ RUN /usr/local/bin/install-plugins.sh google-container-registry-auth
 RUN /usr/local/bin/install-plugins.sh google-login
 RUN /usr/local/bin/install-plugins.sh google-oauth-plugin
 
+#Role strategy
+RUN /usr/local/bin/install-plugins.sh role-strategy
+
+#Pipeline
+RUN /usr/local/bin/install-plugins.sh convert-to-pipeline
+RUN /usr/local/bin/install-plugins.sh workflow-aggregator
+RUN /usr/local/bin/install-plugins.sh blueocean-pipeline-editor
+RUN /usr/local/bin/install-plugins.sh hubot-steps
+RUN /usr/local/bin/install-plugins.sh pipeline-model-definition
+
 # if we want to install via apt
 USER root
 RUN apt-get update && \
