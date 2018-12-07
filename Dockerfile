@@ -6,6 +6,9 @@ RUN /usr/local/bin/install-plugins.sh ssh-slaves
 RUN /usr/local/bin/install-plugins.sh ssh
 RUN /usr/local/bin/install-plugins.sh ssh-agent
 RUN /usr/local/bin/install-plugins.sh ssh-credentials
+RUN /usr/local/bin/install-plugins.sh credentials-binding
+RUN /usr/local/bin/install-plugins.sh authentication-tokens
+
 
 # install Notifications and Publishing plugins
 RUN /usr/local/bin/install-plugins.sh email-ext
@@ -18,12 +21,14 @@ RUN /usr/local/bin/install-plugins.sh htmlpublisher
 # UI
 RUN /usr/local/bin/install-plugins.sh greenballs
 RUN /usr/local/bin/install-plugins.sh simple-theme-plugin
+RUN /usr/local/bin/install-plugins.sh icon-shim
 
 # Scaling
 RUN /usr/local/bin/install-plugins.sh kubernetes
 
 #Prometheus
 RUN /usr/local/bin/install-plugins.sh prometheus
+RUN /usr/local/bin/install-plugins.sh xvnc
 
 #RUBY
 RUN /usr/local/bin/install-plugins.sh rvm
@@ -58,6 +63,7 @@ RUN /usr/local/bin/install-plugins.sh workflow-aggregator
 RUN /usr/local/bin/install-plugins.sh blueocean-pipeline-editor
 RUN /usr/local/bin/install-plugins.sh hubot-steps
 RUN /usr/local/bin/install-plugins.sh pipeline-model-definition
+RUN /usr/local/bin/install-plugins.sh git-parameter
 
 # if we want to install via apt
 USER root
@@ -84,6 +90,8 @@ RUN apt-get update && \
 RUN apt-get install -y docker-ce
 
 RUN usermod -a -G docker jenkins
+
+#RUN chmod -R 777  /var/run/docker.sock
 
 #CAPISTRANO
 RUN gem install capistrano -v3.4.0
